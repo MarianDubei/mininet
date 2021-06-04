@@ -3,10 +3,10 @@ from mininet.log import info
 
 class HostOnly( Node ): 
 
-    def __init__( self, name, localIntf=Hone, flush=False, inNamespace=False, **params): 
+    def __init__( self, name, localIntf=None, flush=False, inNamespace=False, **params): 
 	
         super( HostOnly, self ).__init__( name, inNamespace, **params )
-        self.locallntf = locallntf 
+        self.localIntf = localIntf
         self.flush = flush 
 	
     def setManualConfig( self, intf ):
