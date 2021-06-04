@@ -1,5 +1,6 @@
 from mininet.util import pexpect
 
+import os
 import pytest
 
 prompt = 'mininet>'
@@ -38,6 +39,14 @@ def test_host_ping_ip_absent(hostname, ip):
     pytest.net.expect('(\d+)% packet loss')
     percent = int(pytest.net.match.group(1)) if pytest.net.match else -1
     assert percent == 100
+
+@pytest.mark.parametrize("host_ip", [
+    ('10.0.0.1'),
+    ('10.0.0.2'),
+])
+def test_os_ping_host(host_ip):
+    response = os.system("ping -c 1 " + host_ip)
+    assert response == 0
 
 def test_exit():
     pytest.net.sendline('quit')
